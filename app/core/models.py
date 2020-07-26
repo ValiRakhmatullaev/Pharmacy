@@ -32,8 +32,15 @@ class Medecine(models.Model):
 
 class Doc(models.Model):
     type = models.ForeignKey('core.Type', on_delete=models.CASCADE, related_name='doctors')
-    address = AddressField()
-    recipe = models.CharField(max_length=50)
+
+
+class Recipe(models.Model):
+    recipe
+    to
+    client
+    recipe
+    to
+    doctor
 
 
 class Type(models.Model):
@@ -45,13 +52,25 @@ class ClientAddress(models.Model):
 
 
 class Order(models.Model):
-    BY_CARD='BY CARD'
-    BY_CASH='BY CASH'
-    PAYMENT_METHOD=(
-        (1,BY_CARD),
-        (2,BY_CASH),
+    BY_CARD = 'BY CARD'
+    BY_CASH = 'BY CASH'
+    PAYMENT_METHOD = (
+        (1, BY_CARD),
+        (2, BY_CASH),
     )
-    client= models.ForeignKey(get_user_model(),on_delete=models.CASCADE,related_name='order')
-    payment_method=models.PositiveSmallIntegerField(choices=PAYMENT_METHOD)
-    quantity= models.PositiveIntegerField()
-    dosge=models.IntegerField()
+    status
+    client = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='order')
+    payment_method = models.PositiveSmallIntegerField(choices=PAYMENT_METHOD)
+    quantity = models.PositiveIntegerField()
+
+
+class DrugForm(models.Model):
+    title = models.CharField()
+
+
+class Drug(models.Model):
+    name = models.CharField(max_length=50)
+    price = MoneyField(max_digits=7, decimal_places=2, default_currency='USD')
+    effect = models.TextField()
+    overdose = models.TextField()
+    drug_form=
